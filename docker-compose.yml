@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  student-bot:
+    build: .
+    container_name: student-helper-bot
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - CHAT_ID=${CHAT_ID}
+      - ALLOWED_GROUP_ID=${ALLOWED_GROUP_ID}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./data:/app/data
+      - ./bot.log:/app/bot.log
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3" 
